@@ -1,0 +1,16 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      python: 3.9 # Specify runtime version if any script processing is needed
+    commands:
+      - echo "Install phase not required for static websites."
+  build:
+    commands:
+      - echo "Fetching static website files from S3..."
+      - mkdir -p output
+      - aws s3 cp s3://rimshas3bucket/Developer/ output/ --recursive
+      - echo "Build phase complete. Files copied to output folder."
+artifacts:
+  files:
+    - output/** # Include all files from the output folder
